@@ -89,7 +89,7 @@ Test that a contained inline-block avoids floats.
 <script>
     function checkUnexpectedSizeZero() {
         var allElements = document.querySelectorAll("*");
-        allElements.forEach(element => {
+        Array.from(allElements).forEach(element => {
             var style = getComputedStyle(element);
             var contain = style.contain;
             if (contain == null) {
