@@ -37,7 +37,8 @@
         left: 200px;
     }
 </style>
-<p><a href="https://chromium.googlesource.com/chromium/src.git/+/b66c49fa179e76970cc9cf4500fee1f9f0ff2cb8">source</a></p>
+<p><a href="https://chromium.googlesource.com/chromium/src.git/+/b66c49fa179e76970cc9cf4500fee1f9f0ff2cb8">source</a>
+</p>
 Test an unsized contained block collapses.
 <div class="containLayout" data-expected-height=0>
     <div class="sized"></div>
@@ -84,3 +85,22 @@ Test that a contained inline-block avoids floats.
     <div class="overhangingFloat"></div>
     <div class="containLayout sized inlineBlock" data-offset-x=10></div>
 </div>
+
+<script>
+    function checkUnexpectedSizeZero() {
+        var allElements = document.querySelectorAll("*");
+        allElements.forEach(element => {
+            var style = getComputedStyle(element);
+            var contain = style.contain;
+            if (contain == null) {
+                return;
+            }
+            var height = style.height;
+            var width = style.width;
+            if (height === "0px" && width === "0px") {
+                console.warn("Unelected zero style by contain: " + contain, element);
+            }
+        })
+    }
+    checkUnexpectedSizeZero();
+</script>
